@@ -1,0 +1,12 @@
+version: "3.9" # docker-compose のバージョン指定
+services: # コンテナの定義
+  react-app: # コンテナ名
+    build: # ビルド時の設定
+      context: . # Dockerfile のビルドコンテキスト
+      dockerfile: Dockerfile # Dockerfile のパス
+    volumes: # ボリュームの設定
+      - ./app:/usr/src/app # ローカルの ./ をコンテナ内の /usr/src/app にマウント
+    ports: # ポートの設定
+      - "3000:3000" # ローカルの 3000 ポートをコンテナの 3000 ポートにマッピング
+    tty: true # コンテナの標準入出力を有効にする
+    stdin_open: true # コンテナの標準入力を有効にする
