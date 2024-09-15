@@ -74,27 +74,33 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
   // State to track current location (start at center of screen)
   const [location, setLocation] = useState({ x: 0, y: 0 });
 
+
+  const  getRandposX = () => Math.random() * window.innerWidth * 0.8;
+  const  getRandposY = () => Math.random() * window.innerHeight * 0.8;
+
+
+
   // Get dog positions from the useDogs hook
   const { dogs, moveDog } = useDogs([
-    { id: "dog1", x: 50, y: 50 },
-    { id: "dog2", x: 100, y: 30 },
-    { id: "dog3", x: 150, y: 150 },
-    { id: "dog4", x: 200, y: 400 },
-    { id: "dog5", x: 250, y: 250 },
-    { id: "dog6", x: 500, y: 300 },
-    { id: "dog7", x: 400, y: 200 },
-    { id: "dog8", x: 300, y: 100 },
-    { id: "dog9", x: 350, y: 350 },
-    { id: "dog10", x: 450, y: 600 },
+    { id: "dog1", x: getRandposX(), y: getRandposY() },
+    { id: "dog2", x: getRandposX(), y: getRandposY() },
+    { id: "dog3", x: getRandposX(), y: getRandposY() },
+    { id: "dog4", x: getRandposX(), y: getRandposY() },
+    { id: "dog5", x: getRandposX(), y: getRandposY() },
+    { id: "dog6", x: getRandposX(), y: getRandposY() },
+    { id: "dog7", x: getRandposX(), y: getRandposY() },
+    { id: "dog8", x: getRandposX(), y: getRandposY() },
+    { id: "dog9", x: getRandposX(), y: getRandposY() },
+    { id: "dog10", x: getRandposX(), y: getRandposY() },
   ]);
 
   const [stationaryDogPositions, setStationaryDogPositions] = useState([
-    { id: "dog1", x: 450, y: 600 },
-    { id: "dog2", x: 600, y: 500 },
-    { id: "dog3", x: 350, y: 250 },
-    { id: "dog4", x: 300, y: 120 },
-    { id: "dog5", x: 50, y: 150 },
-    { id: "dog6", x: 800, y: 100 },
+    { id: "dog1", x: getRandposX(), y: getRandposY() },
+    { id: "dog2", x: getRandposX(), y: getRandposY() },
+    { id: "dog3", x: getRandposX(), y: getRandposY() },
+    { id: "dog4", x: getRandposX(), y: getRandposY() },
+    { id: "dog5", x: getRandposX(), y: getRandposY() },
+    { id: "dog6", x: getRandposX(), y: getRandposY() },
   ]);
 
   // Move function for CurrentLocation
