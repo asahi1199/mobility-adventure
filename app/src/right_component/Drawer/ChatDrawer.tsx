@@ -10,13 +10,41 @@ import {
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-const ChatDrawer: React.FC = () => {
+import  postToGenerativeModel  from '../../llmRequest';
+import { useEffect } from 'react';
+
+
+
+  const ChatDrawer: React.FC = () => {
   const [messages, setMessages] = React.useState<string[]>([]);
   const [message, setMessage] = React.useState<string>('');
+  // const [userMassage, setUserMessage] = React.useState<string>('');
+  
+  let count = 0;
 
-  const handleSendMessage = () => {
+  // useEffect(() => {
+  //   const test = async (userMassage:string) => {
+  //       const result = await postToGenerativeModel({ user_prompt: userMassage });
+  //       console.log(result);
+  //       setMessages([...messages, result]);
+  //   }
+  //   test(userMassage);
+  // }, [userMassage,count]);
+
+  
+
+
+  const handleSendMessage = async () => {
+    async function reply(userMassage: string) {
+      const result: string = await postToGenerativeModel({ user_prompt: userMassage });
+      setMessages((prevMessages) => [...prevMessages, result]);
+    }
+  
     if (message.trim()) {
-      setMessages([...messages, message]);
+      setMessages((prevMessages) => [...prevMessages, message]);
+      console.log(messages);
+      await reply(message);
+      console.log(messages);
       setMessage('');
     }
   };
