@@ -1,4 +1,4 @@
-# Electric Sheep 2024 Team DD
+# Electric Sheep 2024 Team-DD
 
 **README Last Update: Sep. 6, 2024**
 
