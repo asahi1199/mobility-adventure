@@ -8,7 +8,7 @@ interface LocationState {
 }
 
 // Custom Hook to get dummy x and y values and constantly update
-export const useCurrentLocation = (): LocationState => {
+export const useMoveCurrentLocation = (): LocationState => {
   const [location, setLocation] = useState<LocationState>({
     x: 20, // Initial dummy x value
     y: 0,  // Initial dummy y value
@@ -23,9 +23,6 @@ export const useCurrentLocation = (): LocationState => {
       if (x > 0) {
         // Decrease x until it reaches 0
         x -= 1;
-      } else if (y < 20) {
-        // Once x reaches 0, start increasing y
-        y += 1;
       }
 
       // Update the location with new x and y values
