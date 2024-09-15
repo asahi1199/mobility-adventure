@@ -1,13 +1,22 @@
 import * as React from 'react';
 import { Box, Avatar, Typography, LinearProgress } from '@mui/material';
 import DogCLASS from '../../dogtype'; // Import Dog type
+import CaptureButton from '../../left_component/components/CaptureButton';
+import FinishCapture from '../../left_component/components/FinishCapture';
 
-// propsでDog情報を受け取るように修正
 interface DetailDrawerProps {
+  isCaptureComplete: boolean;
+  onCaptureComplete: () => void;
+  onFinishCapture: () => void;
   dog: DogCLASS;
 }
 
-const DetailDrawer: React.FC<DetailDrawerProps> = ({ dog }) => {
+const DetailDrawer: React.FC<DetailDrawerProps> = ({
+  dog,
+  isCaptureComplete,
+  onCaptureComplete,
+  onFinishCapture,
+}) => {
   return (
     <Box mt={2}>
       {/* Image */}
@@ -42,7 +51,9 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({ dog }) => {
 
       {/* Stamina Level (体力 = life) */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="body2" fontWeight="bold">体力</Typography>
+        <Typography variant="body2" fontWeight="bold">
+          体力
+        </Typography>
       </Box>
       <LinearProgress
         variant="determinate"
@@ -53,14 +64,25 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({ dog }) => {
 
       {/* Stress Level */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="body2" fontWeight="bold">ストレス度</Typography>
+        <Typography variant="body2" fontWeight="bold">
+          ストレス度
+        </Typography>
       </Box>
+
+      {/* Capture buttons */}
       <LinearProgress
         variant="determinate"
         value={dog.stress}
         sx={{ height: 10, borderRadius: 5, mt: 1 }}
         color={dog.stress > 50 ? 'warning' : 'success'}
       />
+      <Box mt={3} textAlign="center">
+        {isCaptureComplete ? (
+          <FinishCapture onFinishCapture={onFinishCapture} />
+        ) : (
+          <CaptureButton onCaptureComplete={onCaptureComplete} />
+        )}
+      </Box>
     </Box>
   );
 };
