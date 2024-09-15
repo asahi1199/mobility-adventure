@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useDrag } from '@use-gesture/react';
 import { animated, useSpring } from '@react-spring/web';
@@ -11,6 +12,7 @@ import Tab from '@mui/material/Tab';
 import DetailDrawer from '../right_component/Drawer/DetailDrawer';
 import ChatDrawer from '../right_component/Drawer/ChatDrawer';
 import MainDrawer from '../right_component/Drawer/MainDrawer';
+import CurrentLocation from './map_component/CurrentLocation'; // Import CurrentLocation component
 
 type Anchor = 'right';
 
@@ -71,6 +73,8 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+  // State to track current location (start at center of screen)
+  const [location, setLocation] = useState({ x: 0, y: 0 });
 
   // Get dog positions from the useDogs hook
   const { dogs, moveDog } = useDogs([
@@ -79,6 +83,14 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
     { id: 'dog3', x: 150, y: 150 },
   ]);
 
+  // Move function for CurrentLocation
+  const moveCurrentLocation = (dx: number, dy: number) => {
+    setLocation((prevLocation) => ({
+      x: prevLocation.x + dx,
+      y: prevLocation.y + dy,
+    }));
+  };
+
   // Calculate center of the image as soon as it's loaded
   const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const { naturalWidth, naturalHeight } = e.currentTarget;
@@ -86,8 +98,11 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
 
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
+
+    // Center the image and the current location
     setCenterX((windowWidth - naturalWidth) / 2);
     setCenterY((windowHeight - naturalHeight) / 2);
+    setLocation({ x: windowWidth / 2, y: windowHeight / 2 }); // Start location in the center
   };
 
   // Set the initial position of the image to be centered when the component loads
@@ -111,6 +126,12 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
     dogs.forEach((dog) => {
       moveDog(dog.id, dog.x + (newOffsetX - offsetX), dog.y + (newOffsetY - offsetY));
     });
+
+    // Move CurrentLocation dot relative to the map's movement
+    setLocation((prevLocation) => ({
+      x: prevLocation.x + (newOffsetX - offsetX),
+      y: prevLocation.y + (newOffsetY - offsetY),
+    }));
 
     // Update the current offset for the next drag event
     setOffsetX(newOffsetX);
@@ -137,10 +158,6 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
         border: '1px solid black',
       }}
     >
-
-      <div>
-        <MainDrawer />
-      </div>
       <animated.img
         {...bind()} // Bind the drag gesture
         src={src}
@@ -180,6 +197,8 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
       {/* <Button variant="contained" onClick={toggleDrawer('right', true)}>
         Open Side Drawer
       </Button> */}
+      {/* Render the CurrentLocation component and move it along with the map */}
+      <CurrentLocation x={location.x} y={location.y} move={moveCurrentLocation} />
     </div>
 
   );

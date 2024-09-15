@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Search from "./pages/Search";
 import Ride from "./pages/Ride";
+import ChatTest from "./right_component/Drawer/ChatTest";
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/ride" element={<Ride />} />
         </Routes>
+        <ChatTest />
+
       </div>
     </Router>
   );
