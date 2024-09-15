@@ -35,7 +35,7 @@ const ChatScreen: React.FC = () => {
         boxShadow: 3,
       }}
     >
-      {ChatMessage.map((chat) => (
+    {ChatMessage.map((chat) => (
         <ChatBubble key={chat.id} message={chat.message} isUser={chat.isUser} />
       ))}
       {/* メッセージ入力エリア */}
