@@ -13,8 +13,6 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/ride" element={<Ride />} />
         </Routes>
-        <ChatTest />
-
       </div>
     </Router>
   );

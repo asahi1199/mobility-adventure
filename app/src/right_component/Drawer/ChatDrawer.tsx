@@ -10,21 +10,48 @@ import {
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-const ChatDrawer: React.FC = () => {
+import  postToGenerativeModel  from '../../llmRequest';
+import { useEffect } from 'react';
+
+
+
+  const ChatDrawer: React.FC = () => {
   const [messages, setMessages] = React.useState<string[]>([]);
   const [message, setMessage] = React.useState<string>('');
+  // const [userMassage, setUserMessage] = React.useState<string>('');
+  
+  let count = 0;
 
-  const handleSendMessage = () => {
+  // useEffect(() => {
+  //   const test = async (userMassage:string) => {
+  //       const result = await postToGenerativeModel({ user_prompt: userMassage });
+  //       console.log(result);
+  //       setMessages([...messages, result]);
+  //   }
+  //   test(userMassage);
+  // }, [userMassage,count]);
+
+  
+
+
+  const handleSendMessage = async () => {
+    async function reply(userMassage: string) {
+      const result: string = await postToGenerativeModel({ user_prompt: userMassage });
+      setMessages((prevMessages) => [...prevMessages, result]);
+    }
+  
     if (message.trim()) {
-      setMessages([...messages, message]);
+      const requestMassage = message;
       setMessage('');
+      setMessages((prevMessages) => [...prevMessages, requestMassage]);
+      await reply(requestMassage);
     }
   };
 
   return (
     <Box mt={2}>
       {/* Display chat messages */}
-      <List sx={{ maxHeight: 200, overflowY: 'auto', mb: 2 }}>
+      <List sx={{ minHeight: '75vh',maxHeight : '75vh', overflowY: 'auto', mb: 2 }}>
         {messages.length === 0 ? (
           <Typography variant="body2" color="text.secondary">
             No messages yet
@@ -47,8 +74,14 @@ const ChatDrawer: React.FC = () => {
           placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-        />
-        <IconButton color="primary" onClick={handleSendMessage}>
+          onKeyDown={(e) => {
+            if( e.key === 'Enter' && (e.ctrlKey || e.metaKey))
+            {
+              handleSendMessage();
+            }
+          }
+        }/>
+        <IconButton color="primary" onClick={handleSendMessage} >
           <SendIcon />
         </IconButton>
       </Box>
