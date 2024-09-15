@@ -33,8 +33,8 @@ const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen }) => {
       alt={`Dog ${id}`}
       onClick={handleClick}
       style={{
-        width: '50px',
-        height: '50px',
+        width: '100px',
+        height: '100px',
         position: 'absolute',
         left: `${x}px`,
         top: `${y}px`,
@@ -50,8 +50,8 @@ const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen }) => {
             width: '150px',
             height: '150px',
             position: 'absolute',
-            left: `${x + 60}px`, // Position the footsteps next to the dog
-            top: `${y}px`,
+            left: `${x}px`, // Position the footsteps next to the dog
+            top: `${y - 150}px`,
             transition: 'left 0.2s, top 0.2s', // Smooth transition for movement
           }}
         />
