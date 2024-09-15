@@ -51,7 +51,7 @@ import { useEffect } from 'react';
   return (
     <Box mt={2}>
       {/* Display chat messages */}
-      <List sx={{ minHeight: '75vh', overflowY: 'auto', mb: 2 }}>
+      <List sx={{ minHeight: '75vh',maxHeight : '75vh', overflowY: 'auto', mb: 2 }}>
         {messages.length === 0 ? (
           <Typography variant="body2" color="text.secondary">
             No messages yet
@@ -75,7 +75,8 @@ import { useEffect } from 'react';
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if( e.key === 'Enter' && (e.ctrlKey || e.metaKey))
+            {
               handleSendMessage();
             }
           }
