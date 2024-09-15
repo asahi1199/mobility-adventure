@@ -10,10 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import DetailDrawer from "../right_component/Drawer/DetailDrawer";
 import ChatDrawer from "../right_component/Drawer/ChatDrawer";
-// import MainDrawer from '../right_component/Drawer/MainDrawer';
 import CurrentLocation from "./map_component/CurrentLocation"; // Import CurrentLocation component
-import CaptureButton from "./components/CaptureButton";
-import FinishCapture from "./components/FinishCapture";
 import SleepingDog from "./components/SleepingDog";
 import Dog from "./components/Dog";
 import DuringCapture from "./components/DuringCapture";
@@ -29,7 +26,13 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
   sensitivity,
 }) => {
   const [isCaptureComplete, setIsCaptureComplete] = useState(false); // State to track capture status
+  const handleCaptureComplete = () => {
+    setIsCaptureComplete(true); // Capture is complete
+  };
 
+  const handleFinishCapture = () => {
+    setIsCaptureComplete(false); // Capture is reset
+  };
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
   const [centerX, setCenterX] = useState(0); // Initial X axis position
   const [centerY, setCenterY] = useState(0); // Initial Y axis position
@@ -65,7 +68,11 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
       </Tabs>
 
       {/* Render the appropriate component based on the selected tab */}
-      {tabValue === 0 ? <DetailDrawer /> : <ChatDrawer />}
+      {tabValue === 0 ? <DetailDrawer 
+        isCaptureComplete={isCaptureComplete}
+        onCaptureComplete={handleCaptureComplete}
+        onFinishCapture={handleFinishCapture}
+      /> : <ChatDrawer />}
 
       {/* Conditionally render buttons if the drawer is open */}
       {state["right"] && (
