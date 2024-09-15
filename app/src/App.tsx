@@ -14,6 +14,13 @@ import CroppableImage from './left_component/gesture_component';
 function App() {
   return (
     <Router>
+    <div className="App">
+      <h1>Test Croppable Image</h1>
+      <CroppableImage
+        src="big_map.png"
+        sensitivity={1}
+      />
+    </div>
       <div>
         {/* <nav>
           <ul>

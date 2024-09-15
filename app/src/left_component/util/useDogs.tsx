@@ -18,6 +18,18 @@ export const useDogs = (initialDogs: Omit<DogLocation, 'targetX' | 'targetY'>[])
     initialDogs.map((dog) => ({ ...dog, targetX: dog.x, targetY: dog.y }))
   );
 
+  // Function to move a specific dog programmatically by id
+  const moveDog = (id: string, newX: number, newY: number) => {
+    setDogs((prevDogs) =>
+      prevDogs.map((dog) =>
+        dog.id === id
+          ? { ...dog, x: newX, y: newY, targetX: newX, targetY: newY }
+          : dog
+      )
+    );
+  };
+
+  // Random movement logic for the dogs
   useEffect(() => {
     const intervalId = setInterval(() => {
       setDogs((prevDogs) =>
@@ -25,7 +37,7 @@ export const useDogs = (initialDogs: Omit<DogLocation, 'targetX' | 'targetY'>[])
           const step = 2; // Smaller step for slower movement
           let { x, y, targetX, targetY } = dog;
 
-          // If reached the target, set a new random target
+          // If the dog has reached its target, set a new random target
           if (Math.abs(x - targetX) < step && Math.abs(y - targetY) < step) {
             targetX = getRandomPosition(500); // Assuming map width is 500px
             targetY = getRandomPosition(500); // Assuming map height is 500px
@@ -49,5 +61,5 @@ export const useDogs = (initialDogs: Omit<DogLocation, 'targetX' | 'targetY'>[])
     };
   }, []);
 
-  return { dogs };
+  return { dogs, moveDog };
 };
