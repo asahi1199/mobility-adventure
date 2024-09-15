@@ -1,12 +1,14 @@
 import React from "react";
-import "./index.css"; // ボタンのスタイルを定義するCSSファイル
+import "./index2.css";
 
-// コンポーネント定義
-const FinishCapture: React.FC = () => {
-  // ボタンがクリックされたときに呼び出される関数
+// Define props for FinishCapture
+interface FinishCaptureProps {
+  onFinishCapture: () => void; // Expect a callback prop
+}
+
+const FinishCapture: React.FC<FinishCaptureProps> = ({ onFinishCapture }) => {
   const handleClick = (): void => {
-    window.location.href =
-      "https://qiita.com/Hashimoto-Noriaki/items/95d9fe027d169ce74218"; // リダイレクト先のURLを指定
+    onFinishCapture(); // Call the function passed as a prop
   };
 
   return (

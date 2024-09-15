@@ -13,8 +13,10 @@ import ChatDrawer from "../right_component/Drawer/ChatDrawer";
 // import MainDrawer from '../right_component/Drawer/MainDrawer';
 import CurrentLocation from "./map_component/CurrentLocation"; // Import CurrentLocation component
 import CaptureButton from "./components/CaptureButton";
+import FinishCapture from "./components/FinishCapture";
 import SleepingDog from "./components/SleepingDog";
 import Dog from "./components/Dog";
+import DuringCapture from "./components/DuringCapture";
 type Anchor = "right";
 
 interface CroppableImageProps {
@@ -26,6 +28,8 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
   src,
   sensitivity,
 }) => {
+  const [isCaptureComplete, setIsCaptureComplete] = useState(false); // State to track capture status
+
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
   const [centerX, setCenterX] = useState(0); // Initial X axis position
   const [centerY, setCenterY] = useState(0); // Initial Y axis position
@@ -63,8 +67,19 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
       {/* Render the appropriate component based on the selected tab */}
       {tabValue === 0 ? <DetailDrawer /> : <ChatDrawer />}
 
-      {/* URL (capture 済み or not) に応じて異なるボタンを表示 */}
-      <CaptureButton />
+      {/* Conditionally render buttons if the drawer is open */}
+      {state["right"] && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            width: "60%",
+            left: "20px",
+            textAlign: "center",
+          }}
+        >
+        </div>
+      )}
     </Box>
   );
 
@@ -237,6 +252,11 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
         y={location.y}
         move={moveCurrentLocation}
       />
+
+      {/* Render the DuringCapture component when capture is in progress */}
+      {isCaptureComplete && (
+        <DuringCapture  />
+      )}
     </div>
   );
 };

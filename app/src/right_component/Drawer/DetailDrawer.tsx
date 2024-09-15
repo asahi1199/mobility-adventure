@@ -1,7 +1,17 @@
 import * as React from 'react';
 import {Box, Avatar, Typography, LinearProgress} from '@mui/material';
+import CaptureButton from '../../left_component/components/CaptureButton';
+import FinishCapture from '../../left_component/components/FinishCapture';
 
 const DetailDrawer: React.FC = () => {
+  const [isCaptureComplete, setIsCaptureComplete] = React.useState(false); // State to manage capture status
+  const handleCaptureComplete = () => {
+    setIsCaptureComplete(true); // Update state when capture is complete
+  };
+
+  const handleFinishCapture = () => {
+    setIsCaptureComplete(false); // Reset state when finish capture is pressed
+  };
   return (
     <Box mt={2}>
       {/* Image */}
@@ -41,7 +51,16 @@ const DetailDrawer: React.FC = () => {
         <Typography variant="body2" fontWeight="bold">ストレス度</Typography>
       </Box>
       <LinearProgress variant="determinate" value={60} sx={{ height: 10, borderRadius: 5, mt: 1 }} color="warning" />
+      <Box mt={3} textAlign="center">
+        {isCaptureComplete ? (
+          <FinishCapture onFinishCapture={handleFinishCapture} />
+        ) : (
+          <CaptureButton onCaptureComplete={handleCaptureComplete} />
+        )}
+      </Box>
     </Box>
+
+    
   );
 };
 
