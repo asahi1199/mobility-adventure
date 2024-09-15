@@ -6,7 +6,7 @@ const Map = () => {
     <div className="App">
       <h1>Test Croppable Image</h1>
       <CroppableImage
-        src="big_map.png"  // 画像ファイルのパスを指定
+        src="zoom_map.png"  // 画像ファイルのパスを指定
         sensitivity={1}    // 感度を指定
       />
     </div>

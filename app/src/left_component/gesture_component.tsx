@@ -13,6 +13,7 @@ import DetailDrawer from '../right_component/Drawer/DetailDrawer';
 import ChatDrawer from '../right_component/Drawer/ChatDrawer';
 import MainDrawer from '../right_component/Drawer/MainDrawer';
 import CurrentLocation from './map_component/CurrentLocation'; // Import CurrentLocation component
+import SleepingDog from './components/SleepingDog';
 
 type Anchor = 'right';
 
@@ -79,8 +80,24 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
   // Get dog positions from the useDogs hook
   const { dogs, moveDog } = useDogs([
     { id: 'dog1', x: 50, y: 50 },
-    { id: 'dog2', x: 100, y: 100 },
+    { id: 'dog2', x: 100, y: 30 },
     { id: 'dog3', x: 150, y: 150 },
+    { id: 'dog4', x: 200, y: 400 },
+    { id: 'dog5', x: 250, y: 250 },
+    { id: 'dog6', x: 500, y: 300 },
+    { id: 'dog7', x: 400, y: 200 },
+    { id: 'dog8', x: 300, y: 100 },
+    { id: 'dog9', x: 350, y: 350 },
+    { id: 'dog10', x: 450, y:600 },
+  ]);
+
+  const [stationaryDogPositions, setStationaryDogPositions] = useState([
+    { id: 'dog1', x: 450, y: 600 },
+    { id: 'dog2', x: 600, y: 500 },
+    { id: 'dog3', x: 350, y: 250 },
+    { id: 'dog4', x: 300, y: 120 },
+    { id: 'dog5', x: 50, y: 150 },
+    { id: 'dog6', x: 800, y: 100 },
   ]);
 
   // Move function for CurrentLocation
@@ -126,6 +143,15 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
     dogs.forEach((dog) => {
       moveDog(dog.id, dog.x + (newOffsetX - offsetX), dog.y + (newOffsetY - offsetY));
     });
+
+     // Move sleeping dogs relative to the map's movement
+    setStationaryDogPositions((prevPositions) =>
+      prevPositions.map((dog) => ({
+        ...dog,
+        x: dog.x + (newOffsetX - offsetX),
+        y: dog.y + (newOffsetY - offsetY),
+      }))
+    );   
 
     // Move CurrentLocation dot relative to the map's movement
     setLocation((prevLocation) => ({
@@ -186,6 +212,16 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
         />
       ))}
 
+      {/* Render stationary dogs */}
+      {stationaryDogPositions.map((dog) => (
+        <SleepingDog
+          key={dog.id}
+          id={dog.id}
+          x={dog.x}
+          y={dog.y}
+        />
+      ))}
+
       {/* Right Drawer */}
       <Drawer
         anchor="right"
@@ -205,189 +241,3 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
 };
 
 export default CroppableImage;
-
-// import React, { useState } from 'react';
-// import { useDrag } from '@use-gesture/react';
-// import { animated, useSpring } from '@react-spring/web';
-// import Dog from './components/Dear'; // Import the Dog component
-// import { useDogs } from './util/useDogs';
-
-// interface CroppableImageProps {
-//     src: string;
-//     sensitivity: number;
-// }
-
-// const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => {
-//     const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
-//     const [centerX, setCenterX] = useState(0); // Initial X axis position
-//     const [centerY, setCenterY] = useState(0); // Initial Y axis position
-//     const [offsetX, setOffsetX] = useState(0); // Offset for dragging
-//     const [offsetY, setOffsetY] = useState(0); // Offset for dragging
-
-//     // Get dog positions from the useDogs hook
-//     const { dogs, moveDog } = useDogs([
-//         { id: 'dog1', x: 50, y: 50 },
-//         { id: 'dog2', x: 100, y: 100 },
-//         { id: 'dog3', x: 150, y: 150 },
-//     ]);
-
-//     // Calculate image size and center the image on load
-//     const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-//         const { naturalWidth, naturalHeight } = e.currentTarget;
-//         setImgSize({ width: naturalWidth, height: naturalHeight });
-
-//         const windowWidth = window.innerWidth;
-//         const windowHeight = window.innerHeight;
-//         setCenterX((windowWidth - naturalWidth) / 2);
-//         setCenterY((windowHeight - naturalHeight) / 2);
-//     };
-
-//     // Use react-spring to manage drag animation (initialize at center position)
-//     const [style, api] = useSpring(() => ({ x: centerX, y: centerY }));
-
-//     // Bind drag gesture to the image and update both image and dog positions
-//     const bind = useDrag((state) => {
-//         const { offset } = state;
-//         const newOffsetX = offset[0] * sensitivity;
-//         const newOffsetY = offset[1] * sensitivity;
-
-//         // Update the map's position
-//         api.start({ x: newOffsetX + centerX, y: newOffsetY + centerY });
-
-//         // Update dog positions relative to the map's movement
-//         dogs.forEach((dog) => {
-//             moveDog(dog.id, dog.x + (newOffsetX - offsetX), dog.y + (newOffsetY - offsetY));
-//         });
-
-//         // Update the current offset for the next drag event
-//         setOffsetX(newOffsetX);
-//         setOffsetY(newOffsetY);
-//     });
-
-//     // Prevent default drag behavior to hide ghost image
-//     const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => {
-//         e.preventDefault();
-//         const img = new Image();
-//         img.src = '';
-//         e.dataTransfer.setDragImage(img, 0, 0);
-//     };
-
-//     return (
-//         <div
-//             style={{
-//                 position: 'absolute',
-//                 top: 0,
-//                 left: 0,
-//                 width: `100vw`,
-//                 height: `100vh`,
-//                 overflow: 'hidden',
-//                 border: '1px solid black',
-//             }}
-//         >
-//             <animated.img
-//                 {...bind()} // Bind the drag gesture
-//                 src={src}
-//                 alt="Croppable"
-//                 onLoad={handleImageLoad}
-//                 onDragStart={handleDragStart}
-//                 style={{
-//                     ...style,
-//                     cursor: 'grab',
-//                     userSelect: 'none',
-//                     willChange: 'transform',
-//                     width: `${imgSize.width}px`,
-//                     height: `${imgSize.height}px`,
-//                 }}
-//             />
-
-//             {/* Render each dog on top of the image */}
-//             {dogs.map((dog) => (
-//                 <Dog
-//                     key={dog.id}
-//                     id={dog.id}
-//                     x={dog.x} // Updated dog position
-//                     y={dog.y} // Updated dog position
-//                 />
-//             ))}
-//         </div>
-//     );
-// };
-
-// export default CroppableImage;
-
-
-// import React, { useState } from 'react';
-// import { useDrag } from '@use-gesture/react';
-// import { animated, useSpring } from '@react-spring/web';
-
-// interface CroppableImageProps {
-//     src: string;
-//     sensitivity: number;
-// }
-
-// const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => {
-//     const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
-//     const [centerX, setCenterX] = useState(0); // 初期位置のX軸
-//     const [centerY, setCenterY] = useState(0); // 初期位置のY軸
-
-//     // 画像サイズを取得して、中央位置を計算する
-//     const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-//         const { naturalWidth, naturalHeight } = e.currentTarget;
-//         setImgSize({ width: naturalWidth, height: naturalHeight });
-
-//         // 画面の中央を計算して、画像の初期位置を中央に設定
-//         const windowWidth = window.innerWidth;
-//         const windowHeight = window.innerHeight;
-//         setCenterX((windowWidth - naturalWidth) / 2);
-//         setCenterY((windowHeight - naturalHeight) / 2);
-//     };
-
-//     // react-springを使ってアニメーションを管理（初期位置を中央に設定）
-//     const [style, api] = useSpring(() => ({ x: centerX, y: centerY }));
-
-//     // ドラッグ用のジェスチャーフック
-//     const bind = useDrag((state) => {
-//         const { offset } = state;
-//         api.start({ x: offset[0] * sensitivity + centerX, y: offset[1] * sensitivity + centerY });
-//     });
-
-//     // dragstartイベントをハンドリングしてゴースト画像を隠す
-//     const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => {
-//         e.preventDefault(); // ゴースト画像を無効化
-//         const img = new Image();
-//         img.src = ''; // 透明な画像として空のsrcをセット
-//         e.dataTransfer.setDragImage(img, 0, 0); // ゴースト画像を透明にする
-//     };
-
-//     return (
-//         <div
-//             style={{
-//                 position: 'absolute',
-//                 top: 0,
-//                 left: 0,
-//                 width: `100vw`,
-//                 height: `100vh`,
-//                 overflow: 'hidden',
-//                 border: '1px solid black',
-//             }}
-//         >
-//             <animated.img
-//                 {...bind()} // ドラッグジェスチャーを画像にバインド
-//                 src={src}
-//                 alt="Croppable"
-//                 onLoad={handleImageLoad} // 画像がロードされたときにサイズを取得
-//                 onDragStart={handleDragStart} // ゴースト画像を非表示にする処理を追加
-//                 style={{
-//                     ...style, // springスタイルを適用
-//                     cursor: 'grab',
-//                     userSelect: 'none',
-//                     willChange: 'transform',
-//                     width: `${imgSize.width}px`,  // 画像の幅を設定
-//                     height: `${imgSize.height}px`, // 画像の高さを設定
-//                 }}
-//             />
-//         </div>
-//     );
-// };
-
-// export default CroppableImage;
