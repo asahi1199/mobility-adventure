@@ -13,7 +13,8 @@ import ChatDrawer from "../right_component/Drawer/ChatDrawer";
 // import MainDrawer from '../right_component/Drawer/MainDrawer';
 import CurrentLocation from "./map_component/CurrentLocation"; // Import CurrentLocation component
 import CaptureButton from "./components/CaptureButton";
-
+import SleepingDog from "./components/SleepingDog";
+import Dog from "./components/Dog";
 type Anchor = "right";
 
 interface CroppableImageProps {
@@ -76,8 +77,24 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
   // Get dog positions from the useDogs hook
   const { dogs, moveDog } = useDogs([
     { id: "dog1", x: 50, y: 50 },
-    { id: "dog2", x: 100, y: 100 },
+    { id: "dog2", x: 100, y: 30 },
     { id: "dog3", x: 150, y: 150 },
+    { id: "dog4", x: 200, y: 400 },
+    { id: "dog5", x: 250, y: 250 },
+    { id: "dog6", x: 500, y: 300 },
+    { id: "dog7", x: 400, y: 200 },
+    { id: "dog8", x: 300, y: 100 },
+    { id: "dog9", x: 350, y: 350 },
+    { id: "dog10", x: 450, y: 600 },
+  ]);
+
+  const [stationaryDogPositions, setStationaryDogPositions] = useState([
+    { id: "dog1", x: 450, y: 600 },
+    { id: "dog2", x: 600, y: 500 },
+    { id: "dog3", x: 350, y: 250 },
+    { id: "dog4", x: 300, y: 120 },
+    { id: "dog5", x: 50, y: 150 },
+    { id: "dog6", x: 800, y: 100 },
   ]);
 
   // Move function for CurrentLocation
@@ -130,6 +147,15 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
       );
     });
 
+    // Move sleeping dogs relative to the map's movement
+    setStationaryDogPositions((prevPositions) =>
+      prevPositions.map((dog) => ({
+        ...dog,
+        x: dog.x + (newOffsetX - offsetX),
+        y: dog.y + (newOffsetY - offsetY),
+      }))
+    );
+
     // Move CurrentLocation dot relative to the map's movement
     setLocation((prevLocation) => ({
       x: prevLocation.x + (newOffsetX - offsetX),
@@ -179,13 +205,19 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
 
       {/* Render each dog on top of the image */}
       {dogs.map((dog) => (
-        <Dear
+        <Dog
           key={dog.id}
           id={dog.id}
           x={dog.x} // Updated dog position
           y={dog.y} // Updated dog position
           f={toggleDrawer}
+          isDrawerOpen={state["right"]}
         />
+      ))}
+
+      {/* Render stationary dogs */}
+      {stationaryDogPositions.map((dog) => (
+        <SleepingDog key={dog.id} id={dog.id} x={dog.x} y={dog.y} />
       ))}
 
       {/* Right Drawer */}
