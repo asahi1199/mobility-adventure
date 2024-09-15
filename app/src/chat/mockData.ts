@@ -4,7 +4,7 @@ export interface ChatMessage {
     isUser: boolean;
   }
   
-  export const chatMessages: ChatMessage[] = [
+  export const ChatMessage: ChatMessage[] = [
     { id: 1, message: "Hello, how are you?", isUser: false },
     { id: 2, message: "I'm good, thank you! How about you?", isUser: true },
     { id: 3, message: "I'm doing well, thanks for asking!", isUser: false },
