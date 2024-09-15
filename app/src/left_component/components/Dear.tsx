@@ -1,16 +1,19 @@
 import React from 'react';
 
+type Anchor = 'right';
 interface DogProps {
   x: number;
   y: number;
   id: string;
+  f: (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void
 }
 
-const Dog: React.FC<DogProps> = ({ x, y, id }) => {
+const Dog: React.FC<DogProps> = ({ x, y, id , f}) => {
   return (
     <img
       src="dog.png" // Replace this with your actual dog image URL
       alt={`Dog ${id}`}
+      onClick={f('right', true)}
       style={{
         width: '50px',
         height: '50px',

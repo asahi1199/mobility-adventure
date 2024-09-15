@@ -3,6 +3,16 @@ import { useDrag } from '@use-gesture/react';
 import { animated, useSpring } from '@react-spring/web';
 import Dear from './components/Dear'; // Import the Dog component
 import { useDogs } from './util/useDogs'; // The combined useDogs hook
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import DetailDrawer from '../right_component/Drawer/DetailDrawer';
+import ChatDrawer from '../right_component/Drawer/ChatDrawer';
+import MainDrawer from '../right_component/Drawer/MainDrawer';
+
+type Anchor = 'right';
 
 interface CroppableImageProps {
   src: string;
@@ -15,6 +25,52 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
   const [centerY, setCenterY] = useState(0); // Initial Y axis position
   const [offsetX, setOffsetX] = useState(0); // Offset for dragging
   const [offsetY, setOffsetY] = useState(0); // Offset for dragging
+
+  const [state, setState] = React.useState({
+    right: false,
+  });
+
+
+  const toggleDrawer =
+    (anchor: Anchor, open: boolean) =>
+      (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (
+          event.type === 'keydown' &&
+          ((event as React.KeyboardEvent).key === 'Tab' ||
+            (event as React.KeyboardEvent).key === 'Shift')
+        ) {
+          return;
+        }
+
+        setState({ ...state, [anchor]: open });
+      };
+
+
+
+  const [tabValue, setTabValue] = React.useState(0);
+
+
+  const drawerContent = (anchor: Anchor) => (
+    <Box
+      sx={{ width: 300 }}
+      role="presentation"
+      p={2}
+    >
+      {/* Tab to switch between Details and Chat */}
+      <Tabs value={tabValue} onChange={handleTabChange} centered>
+        <Tab label="Details" />
+        <Tab label="Chat" />
+      </Tabs>
+
+      {/* Render the appropriate component based on the selected tab */}
+      {tabValue === 0 ? <DetailDrawer /> : <ChatDrawer />}
+    </Box>
+  );
+
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   // Get dog positions from the useDogs hook
   const { dogs, moveDog } = useDogs([
@@ -81,6 +137,10 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
         border: '1px solid black',
       }}
     >
+
+      <div>
+        <MainDrawer />
+      </div>
       <animated.img
         {...bind()} // Bind the drag gesture
         src={src}
@@ -104,9 +164,23 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
           id={dog.id}
           x={dog.x} // Updated dog position
           y={dog.y} // Updated dog position
+          f={toggleDrawer}
         />
       ))}
+
+      {/* Right Drawer */}
+      <Drawer
+        anchor="right"
+        open={state['right']}
+        onClose={toggleDrawer('right', false)}
+      >
+        {drawerContent('right')}
+      </Drawer>
+      {/* <Button variant="contained" onClick={toggleDrawer('right', true)}>
+        Open Side Drawer
+      </Button> */}
     </div>
+
   );
 };
 
