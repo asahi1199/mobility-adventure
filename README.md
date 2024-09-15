@@ -1,4 +1,4 @@
-# Electric Sheep 2024 Team DD
+# Electric Sheep 2024 Team-DD
 
 **README Last Update: Sep. 6, 2024**
 
@@ -150,3 +150,10 @@
 - `L`: 画面の一番下に移動
 - `gg`: ファイルの先頭に移動
 - `G`: ファイルの末尾に移動
+
+### NPM
+
+```
+npm install @use-gesture/react
+npm install @react-spring/web
+```
