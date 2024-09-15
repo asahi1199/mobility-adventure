@@ -9,36 +9,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Search from "./pages/Search";
 import Ride from "./pages/Ride";
 
-import CroppableImage from './left_component/gesture_component';
 
 function App() {
   return (
     <Router>
-    <div className="App">
-      <h1>Test Croppable Image</h1>
-      <CroppableImage
-        src="big_map.png"
-        sensitivity={1}
-      />
-    </div>
       <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">ホーム</Link>
-            </li>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-            <li>
-              <Link to="/profile">プロフィール</Link>
-            </li>
-          </ul>
-        </nav> */}
-
-        {/* 各ページへのルート設定 */}
         <Routes>
-          {/* <Route path="/" element={<Map />} /> */}
           <Route path="/search" element={<Search />} />
           <Route path="/ride" element={<Ride />} />
         </Routes>
@@ -48,3 +24,4 @@ function App() {
 }
 
 export default App;
+

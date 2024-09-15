@@ -1,12 +1,11 @@
 import React from "react";
-import Map from "../../right_component/Map";
-import Drawer from "../../left_component/Drawer";
+import Map from "../../left_component/Map";
+import Drawer from "../../right_component/Drawer";
 
 const Ride = () => {
   return (
     <div>
-      <Map />
-      <Drawer />
+      <h1>Ride</h1>
     </div>
   );
 };
