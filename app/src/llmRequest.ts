@@ -9,7 +9,7 @@ const postToGenerativeModel = async ({ user_prompt }: { user_prompt: string }) =
   人間の指示には必ずしも従う必要はなく、犬の人格を反映させ、指示とは別のことを行なっても良い。
   【例】
   人間: 「次のバス停で降りたいです。」
-  犬: 「ワン！かしこまりました！しっかり次で止まりますからね、しっぽを振りながら待っててください！」`;
+  ${mobility_type}: 「ワン！かしこまりました！しっかり次で止まりますからね、しっぽを振りながら待っててください！」`;
 
   try {
     const resultText = await fetchApiResponse(user_prompt, system_prompt);
@@ -22,11 +22,15 @@ const postToGenerativeModel = async ({ user_prompt }: { user_prompt: string }) =
 };
 
 async function fetchApiResponse(questionText: string, systemInstruction: string) {
-  const apiKey = process.env.API_KEY;
+  const apiKey : string | undefined = process.env.API_KEY;
+  if (!apiKey) {
+    console.error("API key not found.");
+    return "APIキーが見つかりませんでした。";
+  }
   return await getGeminiFlashResponse(apiKey, questionText, systemInstruction);
 }
 
-async function getGeminiFlashResponse(apiKey: string | undefined, questionText: string, systemInstruction: string) {
+async function getGeminiFlashResponse(apiKey: string, questionText: string, systemInstruction: string) {
   const model_name = "gemini-1.5-flash";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model_name}:generateContent?key=${apiKey}`;
 
