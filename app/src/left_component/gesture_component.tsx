@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDrag } from '@use-gesture/react';
 import { animated, useSpring } from '@react-spring/web';
-import Dear from './components/Dear'; // Import the Dog component
+import Dog from './components/Dog'; // Import the Dog component
 import { useDogs } from './util/useDogs'; // The combined useDogs hook
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -159,12 +159,13 @@ const CroppableImage: React.FC<CroppableImageProps> = ({ src, sensitivity }) => 
 
       {/* Render each dog on top of the image */}
       {dogs.map((dog) => (
-        <Dear
+        <Dog
           key={dog.id}
           id={dog.id}
           x={dog.x} // Updated dog position
           y={dog.y} // Updated dog position
           f={toggleDrawer}
+          isDrawerOpen={state['right']}
         />
       ))}
 
@@ -189,7 +190,7 @@ export default CroppableImage;
 // import React, { useState } from 'react';
 // import { useDrag } from '@use-gesture/react';
 // import { animated, useSpring } from '@react-spring/web';
-// import Dear from './components/Dear'; // Import the Dog component
+// import Dog from './components/Dear'; // Import the Dog component
 // import { useDogs } from './util/useDogs';
 
 // interface CroppableImageProps {
@@ -282,7 +283,7 @@ export default CroppableImage;
 
 //             {/* Render each dog on top of the image */}
 //             {dogs.map((dog) => (
-//                 <Dear
+//                 <Dog
 //                     key={dog.id}
 //                     id={dog.id}
 //                     x={dog.x} // Updated dog position
