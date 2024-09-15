@@ -1,11 +1,11 @@
 import React from 'react';
-import './CaptureButton.css'; // ボタンのスタイルを定義するCSSファイル
+import './index.css'; // ボタンのスタイルを定義するCSSファイル
 
 // コンポーネント定義
-const captureButton: React.FC = () => {
+const CaptureButton: React.FC = () => {
   // ボタンがクリックされたときに呼び出される関数
   const handleClick = (): void => {
-    window.location.href = 'https://example.com'; // リダイレクト先のURLを指定
+    window.location.href = 'https://qiita.com/Hashimoto-Noriaki/items/95d9fe027d169ce74218'; // リダイレクト先のURLを指定
   };
 
   return (
@@ -15,4 +15,4 @@ const captureButton: React.FC = () => {
   );
 };
 
-export default captureButton;
+export default CaptureButton;
