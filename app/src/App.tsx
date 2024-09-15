@@ -29,11 +29,11 @@ function App() {
         </nav> */}
 
         {/* 各ページへのルート設定 */}
-        {/* <Routes> */}
+        <Routes>
           {/* <Route path="/" element={<Map />} /> */}
-          {/* <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/ride" element={<Ride />} />
-        </Routes> */}
+        </Routes>
         <ChatTest />
 
       </div>
