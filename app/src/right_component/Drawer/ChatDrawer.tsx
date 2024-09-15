@@ -41,11 +41,10 @@ import { useEffect } from 'react';
     }
   
     if (message.trim()) {
-      setMessages((prevMessages) => [...prevMessages, message]);
-      console.log(messages);
-      await reply(message);
-      console.log(messages);
+      const requestMassage = message;
       setMessage('');
+      setMessages((prevMessages) => [...prevMessages, requestMassage]);
+      await reply(requestMassage);
     }
   };
 
