@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Box, Avatar, Typography, LinearProgress } from '@mui/material';
+import DogCLASS from '../../dogtype'; // Import Dog type
 import CaptureButton from '../../left_component/components/CaptureButton';
 import FinishCapture from '../../left_component/components/FinishCapture';
 
@@ -7,9 +8,11 @@ interface DetailDrawerProps {
   isCaptureComplete: boolean;
   onCaptureComplete: () => void;
   onFinishCapture: () => void;
+  dog: DogCLASS;
 }
 
 const DetailDrawer: React.FC<DetailDrawerProps> = ({
+  dog,
   isCaptureComplete,
   onCaptureComplete,
   onFinishCapture,
@@ -19,8 +22,8 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({
       {/* Image */}
       <Box display="flex" justifyContent="center">
         <Avatar
-          src="https://upload.wikimedia.org/wikipedia/commons/a/a7/A_chital_stag_1.JPG" // Replace with the path of your image
-          alt="シカ美"
+          src={dog.filepath} // 動的に画像のパスを使用
+          alt={dog.name}
           sx={{ width: 250, height: 180, borderRadius: 2 }}
           variant="square"
         />
@@ -28,31 +31,36 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({
 
       {/* Text Information */}
       <Typography variant="h6" gutterBottom mt={2}>
-        シカ美（メス、3歳）
+        {dog.name}（{dog.sex}、{dog.age}歳）
       </Typography>
-      <Typography variant="body1">性格: 気まぐれ、食いしん坊</Typography>
-      <Typography variant="body1" gutterBottom>
-        自分との距離: 2m
-      </Typography>
+      <Typography variant="body1">性格: {dog.character}</Typography>
 
       {/* Hunger Level */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
-        <Typography variant="body2" fontWeight="bold">
-          満腹度
-        </Typography>
+        <Typography variant="body2" fontWeight="bold">満腹度</Typography>
         <Typography variant="body2" color="text.secondary">
-          おなかが減ってるよ😓
+          {dog.hunger < 30 ? 'おなかが減ってるよ😓' : '満腹だよ😊'}
         </Typography>
       </Box>
-      <LinearProgress variant="determinate" value={30} sx={{ height: 10, borderRadius: 5, mt: 1, mb: 2 }} color="error" />
+      <LinearProgress
+        variant="determinate"
+        value={dog.hunger}
+        sx={{ height: 10, borderRadius: 5, mt: 1, mb: 2 }}
+        color={dog.hunger < 30 ? 'error' : 'success'}
+      />
 
-      {/* Stamina Level */}
+      {/* Stamina Level (体力 = life) */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="body2" fontWeight="bold">
           体力
         </Typography>
       </Box>
-      <LinearProgress variant="determinate" value={70} sx={{ height: 10, borderRadius: 5, mt: 1, mb: 2 }} color="success" />
+      <LinearProgress
+        variant="determinate"
+        value={dog.life}
+        sx={{ height: 10, borderRadius: 5, mt: 1, mb: 2 }}
+        color="success"
+      />
 
       {/* Stress Level */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -60,9 +68,14 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({
           ストレス度
         </Typography>
       </Box>
-      <LinearProgress variant="determinate" value={60} sx={{ height: 10, borderRadius: 5, mt: 1 }} color="warning" />
 
       {/* Capture buttons */}
+      <LinearProgress
+        variant="determinate"
+        value={dog.stress}
+        sx={{ height: 10, borderRadius: 5, mt: 1 }}
+        color={dog.stress > 50 ? 'warning' : 'success'}
+      />
       <Box mt={3} textAlign="center">
         {isCaptureComplete ? (
           <FinishCapture onFinishCapture={onFinishCapture} />

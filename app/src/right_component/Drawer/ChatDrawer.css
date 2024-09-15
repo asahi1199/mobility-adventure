@@ -1,0 +1,54 @@
+/* Styles for the chat box and messages */
+
+/* The container holding each message */
+.message-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* User message styling */
+.user-message {
+  background-color: #0078fe; /* Blue background */
+  color: white; /* White text */
+  padding: 8px 12px;
+  border-radius: 20px;
+  max-width: 60%;
+  word-wrap: break-word;
+  margin-left: auto;
+  text-align: right;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+  border-top-right-radius: 0;
+}
+
+/* Bot message styling */
+.bot-message {
+  background-color: #e5e5ea;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 20px;
+  max-width: 60%;
+  word-wrap: break-word;
+  margin-right: auto;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+  border-top-left-radius: 0;
+}
+
+/* The chat list itself */
+.chat-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input field area */
+.input-area {
+  display: flex;
+  align-items: center;
+}

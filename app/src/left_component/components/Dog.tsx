@@ -8,15 +8,17 @@ interface DogProps {
   id: string;
   f: (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
   isDrawerOpen: boolean; // Receive the isDrawerOpen prop
+  setid: (id: string) => void;
 }
 
-const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen }) => {
+const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen , setid}) => {
   const [isPressed, setIsPressed] = useState(false); // State to track if the dog is pressed
 
   // Handle the click event
   const handleClick = (event: React.MouseEvent) => {
     setIsPressed(!isPressed); // Toggle the pressed state
     f('right', true)(event); // Call the provided function
+    setid(id);
   };
 
   // Reset the dog image when the drawer closes
@@ -29,7 +31,7 @@ const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen }) => {
   return (
     <div>
     <img
-      src={isPressed ? 'dog_pressed.png' : 'dog.png'} // Toggle between the normal and pressed image
+      src={isPressed ? 'new_dog_pressed.png' : 'new_dog.png'} // Toggle between the normal and pressed image
       alt={`Dog ${id}`}
       onClick={handleClick}
       style={{
