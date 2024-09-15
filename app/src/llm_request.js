@@ -3,13 +3,13 @@ const postToGenerativeModel = ({ user_prompt }) => {
     const system_prompt = `
     あなたは、動物バスの運行を担う${mobility_type}です。人間はこれから、人間の自然言語によって指示を渡します。あなたは、それに${mobility_type}としての回答をしてください。ただし、以下の条件を必ず守ること。
     # 返答は自然言語で生成してください。
-    # `
+    # 返答以外の内容は生成結果に含めず、チャットチャットとして成立するようにしてください。`
     return fetchApiResponse(user_prompt, system_prompt)
 }
 
 function fetchApiResponse(questionText, systemInstruction) {
 
-    const apiKey = "AIzaSyBykWQT0P6eFSVPwThrbmBkvG-m_kWjyUA";
+    const apiKey = process.env.API_KEY;
     let resultText = getGeminiFlashResponse(apiKey, questionText, systemInstruction);
     Logger.log(resultText);
     return resultText;
