@@ -9,7 +9,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Search from "./pages/Search";
 import Ride from "./pages/Ride";
 
-
 function App() {
   return (
     <Router>
