@@ -20,7 +20,7 @@ import { useEffect } from 'react';
   const [message, setMessage] = React.useState<string>('');
   // const [userMassage, setUserMessage] = React.useState<string>('');
   
-  let count = 0;
+  // let count = 0;
 
   // useEffect(() => {
   //   const test = async (userMassage:string) => {
