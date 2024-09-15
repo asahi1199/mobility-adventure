@@ -1,3 +1,5 @@
+
+
 const postToGenerativeModel = async ({ user_prompt }: { user_prompt: string }) => {
   const mobility_type = `犬`;
   const system_prompt = `
@@ -22,7 +24,9 @@ const postToGenerativeModel = async ({ user_prompt }: { user_prompt: string }) =
 };
 
 async function fetchApiResponse(questionText: string, systemInstruction: string) {
-  const apiKey : string | undefined = process.env.API_KEY;
+//   const apiKey : string | undefined = process.env.API_KEY; 
+ const apiKey = process.env.REACT_APP_API_KEY;
+
   if (!apiKey) {
     console.error("API key not found.");
     return "APIキーが見つかりませんでした。";
