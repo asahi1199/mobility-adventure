@@ -12,6 +12,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 import  postToGenerativeModel  from '../../llmRequest';
 import { useEffect } from 'react';
+import { useRef } from 'react';
 
 
 
@@ -19,19 +20,16 @@ import { useEffect } from 'react';
   const [messages, setMessages] = React.useState<string[]>([]);
   const [message, setMessage] = React.useState<string>('');
   // const [userMassage, setUserMessage] = React.useState<string>('');
-  
-  let count = 0;
 
-  // useEffect(() => {
-  //   const test = async (userMassage:string) => {
-  //       const result = await postToGenerativeModel({ user_prompt: userMassage });
-  //       console.log(result);
-  //       setMessages([...messages, result]);
-  //   }
-  //   test(userMassage);
-  // }, [userMassage,count]);
-
-  
+  // Scrollを最後に常に移動する。
+  // refの型をHTMLDivElementに設定 トップレベルで呼び出すこと
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
 
   const handleSendMessage = async () => {
@@ -63,10 +61,11 @@ import { useEffect } from 'react';
             </ListItem>
           ))
         )}
+        <div ref={messagesEndRef} />
       </List>
 
       {/* Input field for typing new messages */}
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" >
         <TextField
           variant="outlined"
           fullWidth
@@ -80,11 +79,13 @@ import { useEffect } from 'react';
               handleSendMessage();
             }
           }
-        }/>
-        <IconButton color="primary" onClick={handleSendMessage} >
+          }
+          />
+        <IconButton color="primary" onClick={handleSendMessage}>
           <SendIcon />
         </IconButton>
       </Box>
+      
     </Box>
   );
 };

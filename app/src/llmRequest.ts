@@ -58,7 +58,7 @@ async function getGeminiFlashResponse(apiKey: string, questionText: string, syst
       ],
     },
     generationConfig: {
-      temperature: 1,
+      temperature: 0,
       topK: 64,
       topP: 0.95,
       maxOutputTokens: 8192,
