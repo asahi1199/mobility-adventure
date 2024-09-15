@@ -1,14 +1,8 @@
 import React from "react";
-import Drawer from "../../right_component/Drawer";
 import Map from "../../left_component/Map";
 
 const Search = () => {
-  return (
-    <div>
-      <Map />
-      <Drawer />
-    </div>
-  );
+  return <Map />;
 };
 
 export default Search;
