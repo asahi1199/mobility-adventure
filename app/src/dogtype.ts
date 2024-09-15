@@ -1,4 +1,4 @@
-type Dog = { 
+type DogCLASS = {
     id: number;
     name: string;
     filepath: string;
@@ -10,4 +10,4 @@ type Dog = {
     character: string;
 };
 
-export default Dog;
+export default DogCLASS;

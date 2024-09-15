@@ -1,6 +1,6 @@
-import dog from './dogtype';
+import DogCLASS from './dogtype';
 
-export const dogs: dog[] = [
+export const dogdb: DogCLASS[] = [
     { id: 1, name: "Max", filepath: "/images/max.jpg", life: 80, hunger: 20, stress: 15, sex: "male", age: 5, character: "friendly" },
     { id: 2, name: "Bella", filepath: "/images/bella.jpg", life: 90, hunger: 10, stress: 5, sex: "female", age: 3, character: "playful" },
     { id: 3, name: "Charlie", filepath: "/images/charlie.jpg", life: 85, hunger: 25, stress: 20, sex: "male", age: 4, character: "loyal" },
