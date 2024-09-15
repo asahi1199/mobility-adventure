@@ -15,7 +15,10 @@ import CurrentLocation from "./map_component/CurrentLocation"; // Import Current
 import CaptureButton from "./components/CaptureButton";
 import SleepingDog from "./components/SleepingDog";
 import Dog from "./components/Dog";
+import { dogdb } from '../dogdb'
+import DogCLASS from '../dogtype'; // Import Dog type
 type Anchor = "right";
+
 
 interface CroppableImageProps {
   src: string;
@@ -38,36 +41,47 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
+      (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (
+          event.type === "keydown" &&
+          ((event as React.KeyboardEvent).key === "Tab" ||
+            (event as React.KeyboardEvent).key === "Shift")
+        ) {
+          return;
+        }
 
-      setState({ ...state, [anchor]: open });
-    };
+        setState({ ...state, [anchor]: open });
+      };
 
   const [tabValue, setTabValue] = React.useState(0);
+  const [idValue, setid] = React.useState("");
 
-  const drawerContent = (anchor: Anchor) => (
-    <Box sx={{ width: 300 }} role="presentation" p={2}>
-      {/* Tab to switch between Details and Chat */}
-      <Tabs value={tabValue} onChange={handleTabChange} centered>
-        <Tab label="Details" />
-        <Tab label="Chat" />
-      </Tabs>
+  const drawerContent = (anchor: Anchor, idValue: string) => {
 
-      {/* Render the appropriate component based on the selected tab */}
-      {tabValue === 0 ? <DetailDrawer /> : <ChatDrawer />}
+  const selectedDog = dogdb.find(d => d.id.toString() == idValue)
 
-      {/* URL (capture 済み or not) に応じて異なるボタンを表示 */}
-      <CaptureButton />
-    </Box>
-  );
 
+    if (selectedDog === undefined) {
+      return <div>Not Found </div>
+    }
+    else {
+      return (
+        <Box sx={{ width: 300 }} role="presentation" p={2}>
+          {/* Tab to switch between Details and Chat */}
+          <Tabs value={tabValue} onChange={handleTabChange} centered>
+            <Tab label="Details" />
+            <Tab label="Chat" />
+          </Tabs>
+
+          {/* Render the appropriate component based on the selected tab */}
+          {tabValue === 0 ? <DetailDrawer dog={selectedDog} /> : <ChatDrawer />}
+
+          {/* URL (capture 済み or not) に応じて異なるボタンを表示 */}
+          <CaptureButton />
+        </Box>
+      );
+    }
+  }
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
@@ -75,33 +89,33 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
   const [location, setLocation] = useState({ x: 0, y: 0 });
 
 
-  const  getRandposX = () => Math.random() * window.innerWidth * 0.8;
-  const  getRandposY = () => Math.random() * window.innerHeight * 0.8;
+  const getRandposX = () => Math.random() * window.innerWidth * 0.8;
+  const getRandposY = () => Math.random() * window.innerHeight * 0.8;
 
 
 
   // Get dog positions from the useDogs hook
-  const { dogs, moveDog } = useDogs([
-    { id: "dog1", x: getRandposX(), y: getRandposY() },
-    { id: "dog2", x: getRandposX(), y: getRandposY() },
-    { id: "dog3", x: getRandposX(), y: getRandposY() },
-    { id: "dog4", x: getRandposX(), y: getRandposY() },
-    { id: "dog5", x: getRandposX(), y: getRandposY() },
-    { id: "dog6", x: getRandposX(), y: getRandposY() },
-    { id: "dog7", x: getRandposX(), y: getRandposY() },
-    { id: "dog8", x: getRandposX(), y: getRandposY() },
-    { id: "dog9", x: getRandposX(), y: getRandposY() },
-    { id: "dog10", x: getRandposX(), y: getRandposY() },
-  ]);
+const { dogs, moveDog } = useDogs([
+  { id: "1", x: getRandposX(), y: getRandposY() },
+  { id: "2", x: getRandposX(), y: getRandposY() },
+  { id: "3", x: getRandposX(), y: getRandposY() },
+  { id: "4", x: getRandposX(), y: getRandposY() },
+  { id: "5", x: getRandposX(), y: getRandposY() },
+  { id: "6", x: getRandposX(), y: getRandposY() },
+  { id: "7", x: getRandposX(), y: getRandposY() },
+  { id: "8", x: getRandposX(), y: getRandposY() },
+  { id: "9", x: getRandposX(), y: getRandposY() },
+  { id: "10", x: getRandposX(), y: getRandposY() },
+]);
 
-  const [stationaryDogPositions, setStationaryDogPositions] = useState([
-    { id: "dog1", x: getRandposX(), y: getRandposY() },
-    { id: "dog2", x: getRandposX(), y: getRandposY() },
-    { id: "dog3", x: getRandposX(), y: getRandposY() },
-    { id: "dog4", x: getRandposX(), y: getRandposY() },
-    { id: "dog5", x: getRandposX(), y: getRandposY() },
-    { id: "dog6", x: getRandposX(), y: getRandposY() },
-  ]);
+const [stationaryDogPositions, setStationaryDogPositions] = useState([
+  { id: "1", x: getRandposX(), y: getRandposY() },
+  { id: "2", x: getRandposX(), y: getRandposY() },
+  { id: "3", x: getRandposX(), y: getRandposY() },
+  { id: "4", x: getRandposX(), y: getRandposY() },
+  { id: "5", x: getRandposX(), y: getRandposY() },
+  { id: "6", x: getRandposX(), y: getRandposY() },
+]);
 
   // Move function for CurrentLocation
   const moveCurrentLocation = (dx: number, dy: number) => {
@@ -218,6 +232,7 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
           y={dog.y} // Updated dog position
           f={toggleDrawer}
           isDrawerOpen={state["right"]}
+          setid={setid}
         />
       ))}
 
@@ -226,13 +241,12 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
         <SleepingDog key={dog.id} id={dog.id} x={dog.x} y={dog.y} />
       ))}
 
-      {/* Right Drawer */}
       <Drawer
         anchor="right"
         open={state["right"]}
         onClose={toggleDrawer("right", false)}
       >
-        {drawerContent("right")}
+        {drawerContent("right", idValue)}
       </Drawer>
       {/* <Button variant="contained" onClick={toggleDrawer('right', true)}>
         Open Side Drawer

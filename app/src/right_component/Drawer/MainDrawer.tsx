@@ -42,13 +42,13 @@ export default function MainDrawer() {
       p={2}
     >
       {/* Tab to switch between Details and Chat */}
-      <Tabs value={tabValue} onChange={handleTabChange} centered>
+      {/* <Tabs value={tabValue} onChange={handleTabChange} centered>
         <Tab label="Details" />
         <Tab label="Chat" />
-      </Tabs>
+      </Tabs> */}
 
       {/* Render the appropriate component based on the selected tab */}
-      {tabValue === 0 ? <DetailDrawer /> : <ChatDrawer />}
+      {/* {tabValue === 0 ? <DetailDrawer dog={undefined}/> : <ChatDrawer />} */}
     </Box>
   );
 
@@ -58,7 +58,7 @@ export default function MainDrawer() {
       <Button variant="contained" onClick={toggleDrawer('right', true)}>
         Open Side Drawer
       </Button>
-      
+
       {/* Right Drawer */}
       <Drawer
         anchor="right"
