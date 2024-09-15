@@ -27,6 +27,7 @@ const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen }) => {
   }, [isDrawerOpen]); // This effect will trigger when the drawer state changes
 
   return (
+    <div>
     <img
       src={isPressed ? 'dog_pressed.png' : 'dog.png'} // Toggle between the normal and pressed image
       alt={`Dog ${id}`}
@@ -41,6 +42,21 @@ const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen }) => {
         cursor: 'pointer', // Indicate clickable image
       }}
     />
+      {isPressed && (
+        <img
+          src="footsteps.gif" // Footsteps image
+          alt="Footsteps"
+          style={{
+            width: '150px',
+            height: '150px',
+            position: 'absolute',
+            left: `${x + 60}px`, // Position the footsteps next to the dog
+            top: `${y}px`,
+            transition: 'left 0.2s, top 0.2s', // Smooth transition for movement
+          }}
+        />
+      )}
+    </div>
   );
 };
 
