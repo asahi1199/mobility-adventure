@@ -1,0 +1,35 @@
+.container {
+    background-color: rgb(230, 221, 221);
+    /* 内部の背景色を白に設定 */
+    width: 200px;
+    height: 40px;
+    border-radius: 150px;
+    /* 角を丸くして楕円形にする */
+    border: 5px solid transparent;
+    /* 枠線を透明に設定（border-imageを使うため） */
+    font-size: 20px;
+    /* 文字サイズを調整 */
+    cursor: pointer;
+    /* ボタンにポインタカーソルを表示 */
+    display: flex;
+    /* コンテンツを中央に配置するための設定 */
+    align-items: center;
+    /* 垂直方向の中央寄せ */
+    justify-content: center;
+    /* 水平方向の中央寄せ */
+    text-align: center;
+    /* テキストを中央に配置 */
+
+    border-image: repeating-linear-gradient(45deg,
+            /* 45度の角度で線を描く */
+            red,
+            /* 最初の色を赤に設定 */
+            red 5px,
+            /* 5pxの赤色 */
+            white 5px,
+            /* 5pxの白色 */
+            white 10px
+            /* 赤と白の交互にする */
+        ) 5;
+    /* ボーダーイメージの幅を指定 */
+}
