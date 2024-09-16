@@ -37,9 +37,10 @@
 
 ### フロントエンド部分
 
-- React
 - node.js
 - TypeScript
+- React
+- CSS
 - Material-UI
 
 ### API
