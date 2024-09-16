@@ -31,12 +31,12 @@ const Dog: React.FC<DogProps> = ({ x, y, id, f, isDrawerOpen , setid}) => {
   return (
     <div>
     <img
-      src={isPressed ? 'new_dog_pressed.png' : 'new_dog.png'} // Toggle between the normal and pressed image
+      src={'Group.png'} // Toggle between the normal and pressed image
       alt={`Dog ${id}`}
       onClick={handleClick}
       style={{
-        width: '100px',
-        height: '100px',
+        width: '50px',
+        height: '50px',
         position: 'absolute',
         left: `${x}px`,
         top: `${y}px`,

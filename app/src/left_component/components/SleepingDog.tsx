@@ -14,7 +14,7 @@ const SleepingDog: React.FC<DogProps> = ({ x, y, id}) => {
 
   return (
     <img
-      src={'sleeping_dog.png'} // Toggle between the normal and pressed image
+      src={'Group_sleep.png'} // Toggle between the normal and pressed image
       alt={`Dog ${id}`}
       style={{
         width: '50px',
