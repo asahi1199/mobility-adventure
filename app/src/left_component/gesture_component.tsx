@@ -70,7 +70,7 @@ const CroppableImage: React.FC<CroppableImageProps> = ({
       return <div>Not Found</div>;
     } else {
       return (
-        <Box sx={{ width: 300 }} role="presentation" p={2}>
+        <Box sx={{ width: 600 }} role="presentation" p={2}>
           {/* Tab to switch between Details and Chat */}
           <Tabs value={tabValue} onChange={handleTabChange} centered>
             <Tab label="Details" />

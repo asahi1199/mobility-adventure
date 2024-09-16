@@ -59,7 +59,7 @@ const ChatDrawer: React.FC = () => {
       >
         <List className="chat-list" sx={{ padding: 0 }}>
           {messages.length === 0 ? (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body1" color="text.secondary">
               No messages yet
             </Typography>
           ) : (
@@ -67,6 +67,7 @@ const ChatDrawer: React.FC = () => {
               <ListItem key={index} className="message-container">
                 <ListItemText
                   primary={msg}
+                  primaryTypographyProps={{fontSize: '3.7vh'}} 
                   className={index % 2 === 0 ? 'user-message' : 'bot-message'}
                 />
               </ListItem>
