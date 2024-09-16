@@ -9,6 +9,13 @@
 - **必ずブランチを切って作業してください！！**
 - この README は自由に追記してください。
 
+# アプリケーション概要
+
+- 本あ
+
+
+
+
 # 開発者の環境構築
 
 ## git 関連
@@ -157,3 +164,6 @@
 npm install @use-gesture/react
 npm install @react-spring/web
 ```
+
+# アプリケーションの概要
+
