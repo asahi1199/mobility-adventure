@@ -3,6 +3,8 @@ import { Box, Avatar, Typography, LinearProgress } from '@mui/material';
 import DogCLASS from '../../dogtype'; // Import Dog type
 import CaptureButton from '../../left_component/components/CaptureButton';
 import FinishCapture from '../../left_component/components/FinishCapture';
+// MUIのボタンコンポーネントをインポート
+import Button from '@mui/material/Button';
 
 interface DetailDrawerProps {
   isCaptureComplete: boolean;
@@ -77,11 +79,23 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({
         color={dog.stress > 50 ? 'warning' : 'success'}
       />
       <Box mt={3} textAlign="center">
-        {isCaptureComplete ? (
+        {/* ここをMUIで作る */}
+
+        {!isCaptureComplete ? (
+          
+        <Button variant="contained" color="primary" onClick={onCaptureComplete}>
+          キャプチャ
+        </Button>)
+        :
+        (<Button variant="contained" color="secondary" onClick={onFinishCapture}>
+          キャプチャ終了
+        </Button>)
+        }
+        {/* {isCaptureComplete ? (
           <FinishCapture onFinishCapture={onFinishCapture} />
         ) : (
           <CaptureButton onCaptureComplete={onCaptureComplete} />
-        )}
+        )} */}
       </Box>
     </Box>
   );
