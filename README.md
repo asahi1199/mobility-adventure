@@ -15,7 +15,7 @@
 
 以下のリンクからアプリケーションにアクセスできます！動物とお話して一緒に冒険してみませんか？
 
-[Electric Sheep 2024 Diverse Drivers animaru すべての生物が共生する世界へ](https://mobility-adventure.shakenokiri.me/search)
+[Electric-Sheep-2024-Diverse-Drivers-ANIMALink](https://mobility-adventure.shakenokiri.me/search)
 
 ## このアプリケーションにかける前提
 
