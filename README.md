@@ -262,5 +262,4 @@ npm install @use-gesture/react
 npm install @react-spring/web
 ```
 
-# アプリケーションの概要
 
