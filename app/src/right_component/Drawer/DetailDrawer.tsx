@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Box, Avatar, Typography, LinearProgress } from '@mui/material';
 import DogCLASS from '../../dogtype'; // Import Dog type
-import CaptureButton from '../../left_component/components/CaptureButton';
-import FinishCapture from '../../left_component/components/FinishCapture';
 // MUIのボタンコンポーネントをインポート
 import Button from '@mui/material/Button';
 
@@ -82,7 +80,6 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({
         {/* ここをMUIで作る */}
 
         {!isCaptureComplete ? (
-          
         <Button variant="contained" color="primary" onClick={onCaptureComplete}>
           キャプチャ
         </Button>)
