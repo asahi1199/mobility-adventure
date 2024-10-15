@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Search from "./pages/Search";
@@ -11,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/search" element={<Search />} />
           <Route path="/ride" element={<Ride />} />
+          <Route path="/" element={<Search />} />
         </Routes>
       </div>
     </Router>
